@@ -36,7 +36,7 @@ class _RestartState extends State<Restart> {
             child: const Padding(
               padding: EdgeInsets.only(bottom: 28.0),
               child: Align(alignment: Alignment.bottomCenter,
-                child: Text("You're Scan Was Successful",style: TextStyle(
+                child: Text("Your Scan Was Successful",style: TextStyle(
                   color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20
                 ),),
               ),

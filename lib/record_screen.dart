@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //ignore: must_be_immutable
 class RecordScreen extends StatefulWidget {
-  RecordScreen({required this.dates, required this.hours});
-  final List<String> dates;
-  final List<String> hours;
+  const RecordScreen({Key? key}) : super(key: key);
+
 
   @override
   State<RecordScreen> createState() => _RecordScreenState();
@@ -12,15 +11,14 @@ class RecordScreen extends StatefulWidget {
 
 class _RecordScreenState extends State<RecordScreen> {
   String id1 = "";
+  int counter=0;
+  List<String> dates2 = [];
   List<int> mOriginalList = [];
   List<DateTime> dateTime = [];
 
   @override
   void initState() {
-    // TODO: implement initState
-    setState(() {
-      getString();
-    });
+
     getString();
     super.initState();
   }
@@ -31,20 +29,23 @@ class _RecordScreenState extends State<RecordScreen> {
     getList();
   }
 
-  void getString() {
-        List<String>.generate(0, (index) => "add");
-    mOriginalList = widget.dates.map((i) => int.parse(i)).toList();
-
+  void getString() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    dates2 = prefs.getStringList('dates2') ?? List<String>.generate(0, (index) => "add");
+    mOriginalList = dates2.map((i)=> int.parse(i)).toList();
     for (var i in mOriginalList) {
       DateTime before = DateTime.fromMillisecondsSinceEpoch(i);
       dateTime.add(before);
+      counter+=1;
     }
+   
   }
 
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Container(
         color: Colors.white,
         child: Material(
@@ -55,11 +56,19 @@ class _RecordScreenState extends State<RecordScreen> {
   }
 
   Widget getList() {
-    return ListView.builder(
-      itemCount: widget.dates.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(widget.dates[index]),
+    return FutureBuilder(
+            future: Future?.delayed(const Duration(seconds: 1)),
+            builder: (context, snapshot) {
+              if(snapshot.connectionState==ConnectionState.waiting){
+                return const Center(child: CircularProgressIndicator());
+              }
+             return ListView.builder(
+                  itemCount: dateTime.length,
+                  itemBuilder: (context, index) {
+                    return  ListTile(
+                  title: Text("${dateTime[index]}")
+
+          );}
         );
       },
     );

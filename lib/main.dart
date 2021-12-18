@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:driver_qr/record_screen.dart';
+import 'package:driver_qr/success.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:driver_qr/starting.dart';
 import 'package:flutter/cupertino.dart';
@@ -100,6 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 45,width: 150,
                 child: ElevatedButton(
                     onPressed: (){
+
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>const StartingScreen()));
                     },
                     style: ElevatedButton.styleFrom(
@@ -149,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         counter+=1;
                       }
                       index+=1;
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>RecordScreen(dates: dates,hours: finalHourList)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>RecordScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Colors.redAccent,

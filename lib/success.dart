@@ -32,7 +32,7 @@ class _SuccessState extends State<Success> with TickerProviderStateMixin{
             () => Navigator.pushAndRemoveUntil(
             context,
             PageRouteBuilder(
-                transitionDuration: const Duration(seconds: 2),
+                transitionDuration: const Duration(seconds: 5),
                 pageBuilder: (_, __, ___) => const Restart()),
                 (Route<dynamic> route)=> false
         ));
